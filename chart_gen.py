@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 phases = ['Phase 1\n(Naive)', 'Phase 2\n(Static Batching)', 'Phase 3\n(NanoVLLM)']
-throughput = [4.37, 82.30, 176.14] # From your screenshots
+throughput = [4.37, 82.30, 176.14] 
 colors = ['#ff9999', '#66b3ff', '#99ff99']
 
 plt.figure(figsize=(10, 6))
@@ -44,3 +44,31 @@ plt.annotate('7x Faster', xy=(1, 0.30), xytext=(0.5, 1.0),
 
 plt.savefig('prefix_caching.png', dpi=300)
 print("Generated prefix_caching.png")
+
+labels = ['1 GPU\n(TP=1)', '2 GPUs\n(TP=2)']
+throughput = [1331.48, 1543.79]
+
+ideal_tp2 = throughput[0] * 2 
+
+plt.figure(figsize=(8, 6))
+
+bars = plt.bar(labels, throughput, color=['#66b3ff', '#99ff99'], edgecolor='black', width=0.5, label='Actual Throughput')
+
+plt.plot([0, 1], [throughput[0], ideal_tp2], color='red', linestyle='--', marker='o', linewidth=2, label='Ideal Linear Scaling (2x)')
+
+for bar in bars:
+    height = bar.get_height()
+    plt.text(bar.get_x() + bar.get_width()/2.0, height, f'{height:.0f}', ha='center', va='bottom', fontsize=12, fontweight='bold')
+
+plt.title('Tensor Parallelism Scaling (Qwen2.5-14B)', fontsize=14, fontweight='bold')
+plt.ylabel('Throughput (tokens/sec)', fontsize=12)
+plt.legend()
+plt.grid(axis='y', linestyle='--', alpha=0.5)
+
+plt.annotate('Communication Cost\n(NCCL Overhead)', 
+             xy=(1, 1543), xytext=(0.5, 2000),
+             fontsize=11, color='red')
+
+plt.ylim(0, 3000)
+plt.savefig('tp_scaling.png', dpi=300)
+print("Generated tp_scaling.png")
