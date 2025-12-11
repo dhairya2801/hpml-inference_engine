@@ -18,4 +18,5 @@ Phase 5 [Completed]: Analyzed Prefix Caching to handle similar input prompts
 
 Phase 6 [Completed]: Analyzed Tensor Parallelism for inference on more than 1 GPUs.
 
+Phase 7 [Incomplete]: Implementation of CUDA Graphs to reduce the CPU overhead.
 
