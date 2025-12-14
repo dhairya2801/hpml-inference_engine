@@ -140,4 +140,4 @@ While throughput increases with tensor parallelism, scaling is **far from ideal*
 * Prefix caching is critical for workloads with overlapping prompts
 * Tensor parallelism has diminishing returns without careful communication optimization
 
-These results align closely with observations from production‑grade LLM serving systems and validate the core architectural choices behind modern inference engines fileciteturn0file0.
+These results align closely with observations from production‑grade LLM serving systems and validate the core architectural choices behind modern inference engines. 
